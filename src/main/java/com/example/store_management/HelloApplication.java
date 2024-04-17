@@ -18,7 +18,7 @@ public class HelloApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AdminSignIn.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
 
-        stage.setTitle("Shop");
+        stage.setTitle("Shop_Marcet");
 
         scene.setOnMousePressed((MouseEvent event) -> {
             x = event.getSceneX();
