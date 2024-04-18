@@ -59,6 +59,72 @@ public class HelloController {
     private ResultSet result;
     private PreparedStatement prepare;
 
+    public void employeeLogin() {
+        String employeeData = "SELECT * FROM employee WHERE employee_id = ? and password = ?";
+
+        connect = database.connectDb();
+
+        try {
+            Alert alert;
+
+            prepare = connect.prepareStatement(employeeData);
+
+            if (employee_id.getText().isEmpty() || employee_password.getText().isEmpty()) {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Повідомлення про помилку");
+                alert.setHeaderText(null);
+                alert.setContentText("Будь ласка, заповніть усі порожні поля");
+                alert.showAndWait();
+            } else {
+                prepare.setString(1, employee_id.getText());
+                prepare.setString(2, employee_password.getText());
+
+                result = prepare.executeQuery();
+
+                if (result != null && result.next()) {
+
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Інформаційне повідомлення");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Успішний вхід!");
+                    alert.showAndWait();
+
+                    employee_loginBtn.getScene().getWindow().hide();
+
+                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("employeeDashboard.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load(), 1100, 600);
+
+                    Stage stage = new Stage();
+                    stage.initStyle(StageStyle.TRANSPARENT);
+                    stage.setScene(scene);
+                    stage.show();
+
+                } else {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Повідомлення про помилку");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Неправильний ID працівника/пароль");
+                    alert.showAndWait();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (result != null) {
+                    result.close();
+                }
+                if (prepare != null) {
+                    prepare.close();
+                }
+                if (connect != null) {
+                    connect.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
     public void adminLogin() {
         String adminData = "SELECT * FROM admin WHERE username = ? and password = ?";
 
