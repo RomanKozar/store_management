@@ -5,7 +5,6 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeTableColumn?>
@@ -211,40 +210,39 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane layoutX="33.0" layoutY="33.0" prefHeight="546.4" prefWidth="828.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane layoutX="33.0" layoutY="33.0" prefHeight="546.4" prefWidth="828.8" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="15.0" layoutY="10.0" prefHeight="513.0" prefWidth="230.0" style="-fx-border-color: #000000;">
                                  <children>
-                                    <Label layoutX="16.0" layoutY="18.0" text="Product ID:">
+                                    <Label layoutX="16.0" layoutY="18.0" text="ID_товару:">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
                                     <TextField layoutX="85.0" layoutY="15.0" prefHeight="26.0" prefWidth="129.0" />
-                                    <Label layoutX="5.0" layoutY="50.0" text="Brand Name:">
+                                    <Label layoutX="5.0" layoutY="50.0" text="Імя_клієнта:">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
                                     <TextField layoutX="85.0" layoutY="47.0" prefHeight="26.0" prefWidth="129.0" />
-                                    <Label layoutX="4.0" layoutY="82.0" text="Product Name:">
+                                    <Label layoutX="34.0" layoutY="82.0" text="Товар:">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <TextField layoutX="93.0" layoutY="79.0" prefHeight="26.0" prefWidth="122.0" />
-                                    <Label layoutX="49.0" layoutY="115.0" text="Status:">
+                                    <TextField layoutX="85.0" layoutY="79.0" prefHeight="26.0" prefWidth="130.0" />
+                                    <Label layoutX="49.0" layoutY="115.0" text="Статус:">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
                                     <ComboBox layoutX="94.0" layoutY="112.0" prefHeight="26.0" prefWidth="123.0" />
-                                    <Label layoutX="53.0" layoutY="148.0" text="Data:">
+                                    <Label layoutX="23.0" layoutY="149.0" text="Кількість:">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <DatePicker layoutX="92.0" layoutY="145.0" prefHeight="26.0" prefWidth="126.0" />
                                     <Button layoutX="50.0" layoutY="190.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="54.0" text="Add">
                                        <font>
                                           <Font name="System Bold" size="13.0" />
@@ -265,16 +263,79 @@
                                           <Font name="System Bold" size="13.0" />
                                        </font>
                                     </Button>
+                                    <TextField layoutX="87.0" layoutY="145.0" prefHeight="26.0" prefWidth="130.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane layoutX="251.0" layoutY="10.0" prefHeight="512.0" prefWidth="564.0" style="-fx-border-color: #000000;">
                                  <children>
-                                    <TreeTableView layoutX="1.0" layoutY="2.0" prefHeight="503.0" prefWidth="557.0">
+                                    <TreeTableView layoutX="1.0" layoutY="38.0" prefHeight="467.0" prefWidth="558.0">
                                       <columns>
-                                        <TreeTableColumn prefWidth="75.0" text="C1" />
-                                        <TreeTableColumn prefWidth="75.0" text="C2" />
+                                        <TreeTableColumn prefWidth="123.19987487792969" text="ID_товару" />
+                                        <TreeTableColumn prefWidth="111.199951171875" text="Імя_клієнта" />
+                                          <TreeTableColumn prefWidth="112.00006103515625" text="Товар" />
+                                          <TreeTableColumn prefWidth="91.46649169921875" text="Статус" />
+                                          <TreeTableColumn prefWidth="123.7335205078125" text="Дата" />
                                       </columns>
                                     </TreeTableView>
+                                    <TextField layoutX="14.0" layoutY="7.0" prefHeight="26.0" prefWidth="191.0" promptText="      Пошук" text="      " />
+                                    <ImageView fitHeight="16.0" fitWidth="17.0" layoutX="20.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@assets/211817_search_strong_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="86.0" layoutY="47.0" prefHeight="546.4" prefWidth="828.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <AnchorPane layoutX="15.0" layoutY="14.0" prefHeight="207.0" prefWidth="796.0" style="-fx-border-color: #000000;">
+                                 <children>
+                                    <TreeTableView layoutX="5.0" layoutY="4.0" prefHeight="200.0" prefWidth="785.0">
+                                      <columns>
+                                        <TreeTableColumn prefWidth="50.666690826416016" text="id" />
+                                        <TreeTableColumn prefWidth="133.86669921875" text="employee_id" />
+                                          <TreeTableColumn prefWidth="134.13328552246094" text="password" />
+                                          <TreeTableColumn prefWidth="137.60003662109375" text="firstName" />
+                                          <TreeTableColumn prefWidth="111.73333740234375" text="lastName" />
+                                          <TreeTableColumn prefWidth="113.60009765625" text="gender" />
+                                          <TreeTableColumn prefWidth="110.39990234375" text="data" />
+                                      </columns>
+                                    </TreeTableView>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="14.0" layoutY="231.0" prefHeight="294.0" prefWidth="799.0" style="-fx-border-color: #000000;">
+                                 <children>
+                                    <Label layoutX="27.0" layoutY="32.0" text="employee_id:">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="110.0" layoutY="29.0" prefHeight="26.0" prefWidth="129.0" />
+                                    <Label layoutX="43.0" layoutY="77.0" text="password:">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="109.0" layoutY="74.0" prefHeight="26.0" prefWidth="129.0" />
+                                    <Label layoutX="309.0" layoutY="33.0" text="firstName:">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="378.0" layoutY="30.0" prefHeight="26.0" prefWidth="129.0" />
+                                    <Label layoutX="310.0" layoutY="74.0" text="lastName:">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="379.0" layoutY="71.0" prefHeight="26.0" prefWidth="129.0" />
+                                    <Label layoutX="322.0" layoutY="124.0" text="gender:">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="380.0" layoutY="120.0" prefHeight="26.0" prefWidth="129.0" />
                                  </children>
                               </AnchorPane>
                            </children>
