@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.scene.input.MouseEvent;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -58,6 +59,9 @@ public class HelloController {
     private Connection connect;
     private ResultSet result;
     private PreparedStatement prepare;
+
+    private double x= 0;
+    private double y= 0;
 
     public void employeeLogin() {
         String employeeData = "SELECT * FROM employee WHERE employee_id = ? and password = ?";
@@ -161,6 +165,17 @@ public class HelloController {
                     Stage stage = new Stage();
                     stage.initStyle(StageStyle.TRANSPARENT);
                     stage.setScene(scene);
+
+                    scene.setOnMousePressed((MouseEvent event) -> {
+                        x = event.getSceneX();
+                        y = event.getSceneY();
+                    });
+
+                    scene.setOnMouseDragged((MouseEvent event) -> {
+                        stage.setX(event.getScreenX() - x);
+                        stage.setY(event.getScreenY() - y);
+                    });
+
                     stage.show();
                 } else {
                     alert = new Alert(Alert.AlertType.ERROR);
