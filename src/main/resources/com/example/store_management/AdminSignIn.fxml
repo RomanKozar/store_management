@@ -30,7 +30,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="admin_form" layoutX="273.0" prefHeight="402.0" prefWidth="327.0" visible="false">
+            <AnchorPane fx:id="admin_form" layoutX="273.0" prefHeight="402.0" prefWidth="327.0">
                <children>
                   <TextField fx:id="admin_username" layoutX="60.0" layoutY="168.0" onAction="#adminLogin" prefHeight="30.0" prefWidth="206.0" promptText="Username" rotate="176.2">
                      <rotationAxis>
@@ -85,7 +85,7 @@
                   </Button>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="employee_form" layoutX="273.0" prefHeight="402.0" prefWidth="327.0">
+            <AnchorPane fx:id="employee_form" layoutX="273.0" prefHeight="402.0" prefWidth="327.0" visible="false">
                <children>
                   <TextField fx:id="employee_id" layoutX="60.0" layoutY="170.0" onAction="#employeeLogin" prefHeight="30.0" prefWidth="206.0" promptText=" Employee ID" />
                   <PasswordField fx:id="employee_password" layoutX="60.0" layoutY="216.0" onAction="#employeeLogin" prefHeight="30.0" prefWidth="206.0" promptText="Password" />
