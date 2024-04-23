@@ -2,6 +2,8 @@ package com.example.store_management;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -98,6 +100,21 @@ public class adminDashboardController implements Initializable {
     private Button close;
 
     @FXML
+    private Button addProducts_request1;
+
+    @FXML
+    private Button addProducts_request2;
+
+    @FXML
+    private Button addProducts_request3;
+
+    @FXML
+    private Button addProducts_request4;
+
+    @FXML
+    private Button addProducts_request5;
+
+    @FXML
     private Label dashboard_activeEmployess;
 
     @FXML
@@ -119,22 +136,22 @@ public class adminDashboardController implements Initializable {
     private Button employees_clearBtn;
 
     @FXML
-    private TableColumn<?, ?> employees_col_data;
+    private TableColumn<employeeData, String> employees_col_data;
 
     @FXML
-    private TableColumn<?, ?> employees_col_employeeID;
+    private TableColumn<employeeData, String> employees_col_employeeID;
 
     @FXML
-    private TableColumn<?, ?> employees_col_firstName;
+    private TableColumn<employeeData, String> employees_col_firstName;
 
     @FXML
-    private TableColumn<?, ?> employees_col_gender;
+    private TableColumn<employeeData, String> employees_col_gender;
 
     @FXML
-    private TableColumn<?, ?> employees_col_lastName;
+    private TableColumn<employeeData, String> employees_col_lastName;
 
     @FXML
-    private TableColumn<?, ?> employees_col_password;
+    private TableColumn<employeeData, String> employees_col_password;
 
     @FXML
     private Button employees_deleteBtn;
@@ -161,7 +178,7 @@ public class adminDashboardController implements Initializable {
     private Button employees_saveBtn;
 
     @FXML
-    private TableView<?> employees_tableView;
+    private TableView<employeeData> employees_tableView;
 
     @FXML
     private Button employees_updateBtn;
@@ -304,6 +321,109 @@ public class adminDashboardController implements Initializable {
         addProducts_number.setText("");
     }
 
+    @FXML
+    public void handleRequest1Action(ActionEvent event) {
+        String query = "SELECT customerName, AVG(CAST(number AS UNSIGNED)) AS averageNumber FROM product GROUP BY customerName";
+        connect = database.connectDb();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            StringBuilder resultText = new StringBuilder("Середнє значення:\n");
+            while (result.next()) {
+                String customerName = result.getString("customerName");
+                double averageNumber = result.getDouble("averageNumber");
+                resultText.append(customerName).append(": ").append(averageNumber).append("\n");
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результат запиту", resultText.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+
+    @FXML
+    public void handleRequest2Action(ActionEvent event) {
+        String query = "SELECT status, SUM(CAST(number AS UNSIGNED)) AS totalNumber FROM product GROUP BY status";
+        connect = database.connectDb();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            StringBuilder resultText = new StringBuilder("Загальна кількість по статусу:\n");
+            while (result.next()) {
+                String status = result.getString("status");
+                int totalNumber = result.getInt("totalNumber");
+                resultText.append(status).append(": ").append(totalNumber).append("\n");
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результат запиту", resultText.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+
+    @FXML
+    public void handleRequest3Action(ActionEvent event) {
+        String query = "SELECT MAX(CAST(number AS UNSIGNED)) AS maxNumber FROM product";
+        connect = database.connectDb();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            if (result.next()) {
+                int maxNumber = result.getInt("maxNumber");
+                showAlert(Alert.AlertType.INFORMATION, "Результат запиту", "Максимальна кількість продуктів в одному замовленні: " + maxNumber);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+
+    @FXML
+    void handleRequest4Action(ActionEvent event) {
+        String query = "SELECT COUNT(DISTINCT productName) AS uniqueProducts FROM product";
+        connect = database.connectDb();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            if (result.next()) {
+                int uniqueProducts = result.getInt("uniqueProducts");
+                showAlert(Alert.AlertType.INFORMATION, "Результат запиту", "Унікальних назв продуктів: " + uniqueProducts);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+
+    @FXML
+    public void handleRequest5Action(ActionEvent event) {
+        String query = "SELECT customerName, COUNT(*) AS productsInProcess FROM product WHERE status = 'В обробці' GROUP BY customerName";
+        connect = database.connectDb();
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            while (result.next()) {
+                String customerName = result.getString("customerName");
+                int productsInProcess = result.getInt("productsInProcess");
+                resultMessage.append("Клієнт: ").append(customerName).append(", Продуктів в обробці: ").append(productsInProcess).append("\n");
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+
     private String [] statusList = {
             "В обробці",
             "Завершено"
@@ -317,6 +437,40 @@ public class adminDashboardController implements Initializable {
 
         ObservableList statusData = FXCollections.observableArrayList(list);
         addProducts_status.setItems(statusData);
+    }
+
+    public void addProductsSearch (){
+
+        FilteredList<productData> filter = new FilteredList<>(addProductsList, e -> true);
+
+        addProducts_search.textProperty().addListener((Observable, oldValue, newValue) -> {
+            filter.setPredicate(predicateProductData -> {
+                if(newValue == null || newValue.isEmpty()){
+                    return true;
+                }
+
+                String searchKey = newValue.toLowerCase();
+
+                if(predicateProductData.getID().toLowerCase().contains(searchKey)){
+                    return true;
+                }else if(predicateProductData.getProductID().toLowerCase().contains(searchKey)){
+                    return true;
+                } else if (predicateProductData.getCustomerName().toLowerCase().contains(searchKey)) {
+                    return true;
+                }else if(predicateProductData.getStatus().toLowerCase().contains(searchKey)){
+                    return true;
+                }else if (predicateProductData.getProductName().toLowerCase().contains(searchKey)){
+                    return true;
+                }else if(predicateProductData.getNumber().toLowerCase().contains(searchKey)){
+                    return true;
+                }else return false;
+            });
+        });
+
+        SortedList<productData> sortList = new SortedList<>(filter);
+
+        sortList.comparatorProperty().bind(addProducts_tableView.comparatorProperty());
+        addProducts_tableView.setItems(sortList);
     }
 
     public ObservableList<productData> addProductListData(){
@@ -382,6 +536,174 @@ public class adminDashboardController implements Initializable {
         addProducts_number.setText(prod.getNumber());
     }
 
+    public void employeesSave(){
+        // Формування SQL запиту для вставки даних
+        String insertEmployee = "INSERT INTO employee"
+                + "(employee_id, password, firstName, lastName, gender, data) "
+                + "VALUES(?,?,?,?,?,?)";
+
+        // Встановлення з'єднання з базою даних
+        connect = database.connectDb();
+
+        try{
+            // Перевірка на заповненість полів
+            if (employees_employeeID.getText().isEmpty()
+                    || employees_password.getText().isEmpty()
+                    || employees_firstName.getText().isEmpty()
+                    || employees_lastName.getText().isEmpty()
+                    || employees_gender.getSelectionModel().getSelectedItem() == null) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Заповніть пусті поля");
+            } else {
+                // Підготовка запиту
+                prepare = connect.prepareStatement(insertEmployee);
+                prepare.setString(1, employees_employeeID.getText());
+                prepare.setString(2, employees_password.getText());
+                prepare.setString(3, employees_firstName.getText());
+                prepare.setString(4, employees_lastName.getText());
+                prepare.setString(5, (String) employees_gender.getSelectionModel().getSelectedItem());
+
+                // Отримання поточної дати
+                java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+                // Встановлення дати в запит
+                prepare.setDate(6, currentDate);
+
+                // Виконання запиту
+                prepare.executeUpdate();
+                showAlert(Alert.AlertType.INFORMATION, "Інформаційне повідомлення", "Ви сохранили");
+
+                // Оновлення даних на формі
+                employeesShowListData();
+                employeesReset();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private String [] genderList = {"Чоловік", "Жінка"};
+    public void employeesGender(){
+        List<String> genderL = new ArrayList<>();
+
+        for(String data: genderList){
+            genderL.add(data);
+        }
+
+        ObservableList listG = FXCollections.observableArrayList(genderL);
+        employees_gender.setItems(listG);
+    }
+
+    public void employeeDelete(){
+
+        String deleteEmployee = "DELETE FROM employee WHERE employee_id = '"
+                +employees_employeeID.getText()+"'";
+
+        connect = database.connectDb();
+
+        try{
+            Alert alert;
+
+            if (employees_employeeID.getText().isEmpty()
+                    || employees_password.getText().isEmpty()
+                    || employees_firstName.getText().isEmpty()
+                    || employees_lastName.getText().isEmpty()
+                    || employees_gender.getSelectionModel().getSelectedItem() == null) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Заповніть пусті поля");
+            } else{
+                alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Інформаційне повідомлення");
+                alert.setHeaderText(null);
+                alert.setContentText("Ви точно хочете видалити продукт з ID: " + employees_employeeID.getText() + "?");
+
+                Optional<ButtonType> option = alert.showAndWait();
+
+                if(option.get().equals(ButtonType.OK)){
+                    statement = connect.createStatement();
+                    statement.executeUpdate(deleteEmployee);
+
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Інформаційне повідомлення");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Успішно видалено");
+                    alert.showAndWait();
+
+                    employeesShowListData();
+                    employeesReset();
+                }else return;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void employeesReset(){
+        employees_employeeID.setText("");
+        employees_password.setText("");
+        employees_firstName.setText("");
+        employees_lastName.setText("");
+        employees_gender.getSelectionModel().clearSelection();
+    }
+
+    public ObservableList<employeeData> employeesListData(){
+
+        ObservableList<employeeData> emData = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM employee";
+
+        connect = database.connectDb();
+
+        try{
+            employeeData employeeD;
+
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+
+            while (result.next()){
+
+                employeeD = new employeeData(
+                        result.getString("employee_id"),
+                        result.getString("password"),
+                        result.getString("firstName"),
+                        result.getString("lastName"),
+                        result.getString("gender"),
+                        result.getString("data"));
+
+                emData.add(employeeD);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return emData;
+    }
+
+    private ObservableList<employeeData> employeesList;
+    public void employeesShowListData(){
+        employeesList = employeesListData();
+
+        employees_col_employeeID.setCellValueFactory(new PropertyValueFactory<>("employee_id"));
+        employees_col_password.setCellValueFactory(new PropertyValueFactory<>("password"));
+        employees_col_firstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        employees_col_lastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        employees_col_gender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        employees_col_data.setCellValueFactory(new PropertyValueFactory<>("data"));
+
+        employees_tableView.setItems(employeesList);
+
+    }
+
+    public void employeesSelect(){
+        employeeData employeeD = employees_tableView.getSelectionModel().getSelectedItem();
+        int num = employees_tableView.getSelectionModel().getSelectedIndex();
+
+        if((num-1) < 1){
+            return;
+        }
+
+        employees_employeeID.setText(employeeD.getEmployee_id());
+        employees_password.setText(employeeD.getPassword());
+        employees_firstName.setText(employeeD.getFirstName());
+        employees_lastName.setText(employeeD.getLastName());
+    }
+
     public void logout() {
         try {
 
@@ -437,10 +759,16 @@ public class adminDashboardController implements Initializable {
             dashboard_form.setVisible(false);
             addProducts_form.setVisible(true);
             employees_form.setVisible(false);
+
+            addProductsShowData();
+            addProductsStatusList();
+            addProductsSearch();
+
         } else if (event.getSource() == employees_bts) {
             dashboard_form.setVisible(false);
             addProducts_form.setVisible(false);
             employees_form.setVisible(true);
+
 
         }
 
@@ -460,6 +788,9 @@ public class adminDashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
             addProductsShowData();
             addProductsStatusList();
+
+            employeesShowListData();
+            employeesGender();
 
     }
 }
