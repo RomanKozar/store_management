@@ -25,6 +25,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -39,6 +40,14 @@ public class adminDashboardController implements Initializable {
 
     @FXML
     private Button addProducts_btn;
+    @FXML
+    private Button goods_btn;
+    @FXML
+    private Button deliveries_btn;
+    @FXML
+    private Button suppliers_btn;
+    @FXML
+    private Button inventory_btn;
 
     @FXML
     private Button addProducts_clearBtn;
@@ -67,10 +76,71 @@ public class adminDashboardController implements Initializable {
     private TableColumn<productData, String> addProducts_col_ID;
 
     @FXML
+    private TableView<goodsData> goods_tableView;
+
+    @FXML
+    private TableColumn<goodsData, String> goods_col_productID;
+    @FXML
+    private TableColumn<goodsData, String> goods_col_name;
+    @FXML
+    private TableColumn<goodsData, String> goods_col_companyName;
+    @FXML
+    private TableColumn<goodsData, String> goods_col_customerAddress;
+    @FXML
+    private TableColumn<goodsData, String> goods_col_category;
+    @FXML
+    private TableColumn<goodsData, String> goods_col_price;
+    @FXML
+    private TableColumn<goodsData, String> goods_col_quantityInStock;
+    @FXML
+    private TableColumn<goodsData, String> goods_col_data;
+
+    @FXML
+    private TableView<deliveriesData> deliveries_tableView;
+    @FXML
+    private TableColumn<deliveriesData, String> deliveries_col_deliveriesID;
+    @FXML
+    private TableColumn<deliveriesData, String> deliveries_col_productID;
+    @FXML
+    private TableColumn<deliveriesData, String> deliveries_col_number;
+    @FXML
+    private TableColumn<deliveriesData, String> deliveries_col_category;
+    @FXML
+    private TableColumn<deliveriesData, String> deliveries_col_deliveryDate;
+    @FXML
+    private TableColumn<deliveriesData, String> deliveries_col_priceOneProduct;
+    @FXML
+    private TableView<suppliersData> suppliers_tableView;
+    @FXML
+    private TableColumn<suppliersData, String> suppliers_col_vendorID;
+    @FXML
+    private TableColumn<suppliersData, String> suppliers_col_nameOfcompanyOrsupplier;
+    @FXML
+    private TableColumn<suppliersData, String> suppliers_col_contactInformation;
+    @FXML
+    private TableColumn<suppliersData, String> suppliers_col_location;
+    @FXML
+    private TableView<inventoryData> inventory_tableView;
+    @FXML
+    private TableColumn<inventoryData, String> inventory_col_inventoryID;
+    @FXML
+    private TableColumn<inventoryData, String> inventory_col_data;
+    @FXML
+    private TableColumn<inventoryData, String> inventory_col_product;
+
+    @FXML
     private Button addProducts_deleteBtn;
 
     @FXML
     private AnchorPane addProducts_form;
+    @FXML
+    private AnchorPane goods_form;
+    @FXML
+    private AnchorPane deliveries_form;
+    @FXML
+    private AnchorPane suppliers_form;
+    @FXML
+    private AnchorPane inventory_form;
 
     @FXML
     private TextField addProducts_number;
@@ -414,15 +484,925 @@ public class adminDashboardController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
         }
     }
+    @FXML
+    public void Request1ActionEmployee(ActionEvent event) {
+        // Змінюємо запит на обчислення середньої довжини employee_id
+        String query = "SELECT AVG(CHAR_LENGTH(employee_id)) AS averageEmployeeIdLength FROM employee";
+        connect = database.connectDb();
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            if (result.next()) {
+                double averageEmployeeIdLength = result.getDouble("averageEmployeeIdLength");
+                resultMessage.append("Середня довжина employee_id: ").append(averageEmployeeIdLength);
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
 
-    private void showAlert(Alert.AlertType alertType, String title, String content) {
+    @FXML
+    public void Request2ActionEmployee(ActionEvent event) {
+        // Запит для визначення середньої довжини імені співробітників
+        String query = "SELECT AVG(LENGTH(firstName)) AS averageNameLength FROM employee";
+        connect = database.connectDb();
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            if (result.next()) {
+                double averageNameLength = result.getDouble("averageNameLength");
+                resultMessage.append("Середня довжина імені співробітників: ").append(String.format("%.2f", averageNameLength));
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+
+    @FXML
+    public void Request3ActionEmployee(ActionEvent event) {
+        // Запит для визначення середньої довжини прізвища співробітників
+        String query = "SELECT AVG(LENGTH(lastName)) AS averageLastNameLength FROM employee";
+        connect = database.connectDb();
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            if (result.next()) {
+                double averageLastNameLength = result.getDouble("averageLastNameLength");
+                resultMessage.append("Середня довжина прізвища співробітників: ").append(String.format("%.2f", averageLastNameLength));
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+
+    @FXML
+    public void Request4ActionEmployee(ActionEvent event) {
+        // Запит для визначення кількості унікальних імен серед співробітників
+        String query = "SELECT COUNT(DISTINCT firstName) AS uniqueFirstNames FROM employee";
+        connect = database.connectDb();
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            if (result.next()) {
+                int uniqueFirstNames = result.getInt("uniqueFirstNames");
+                resultMessage.append("Кількість унікальних імен серед співробітників: ").append(uniqueFirstNames);
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+
+    @FXML
+    public void Request5ActionEmployee(ActionEvent event) {
+        // Запит для визначення кількості співробітників кожної статі
+        String query = "SELECT gender, COUNT(*) AS count FROM employee GROUP BY gender";
+        connect = database.connectDb();
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            while (result.next()) {
+                String gender = result.getString("gender");
+                int count = result.getInt("count");
+                resultMessage.append("Стать: ").append(gender).append(", Кількість співробітників: ").append(count).append("\n");
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestGoods1Action(ActionEvent event) {
+        // Updated query to select the category and count of total products from the goods table
+        String query = "SELECT category, COUNT(*) AS total_products FROM goods GROUP BY category ORDER BY total_products DESC";
+        connect = database.connectDb();
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            while (result.next()) {
+                String category = result.getString("category");
+                int totalProducts = result.getInt("total_products");
+                resultMessage.append("Категорія: ").append(category).append(", Загальна кількість продуктів: ").append(totalProducts).append("\n");
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestGoods2Action(ActionEvent event) {
+        // Updated query to select the category and average price of products from the goods table where quantity in stock is greater than 0
+        String query = "SELECT category, AVG(price) AS average_price FROM goods WHERE quantity_in_stock > 0 GROUP BY category";
+        connect = database.connectDb();
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            while (result.next()) {
+                String category = result.getString("category");
+                double averagePrice = result.getDouble("average_price"); // Use getDouble for average price
+                resultMessage.append("Категорія: ").append(category).append(", Середня ціна: ").append(String.format("%.2f", averagePrice)).append("\n"); // Format the average price to two decimal places
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestGoods3Action(ActionEvent event) { // Змінено назву методу на handleRequestGoods2Action
+        // Updated query to select the company name and count of products supplied from the goods table, having more than 1 product supplied, ordered by the count of products supplied in descending order
+        String query = "SELECT company_name, COUNT(*) AS products_supplied FROM goods GROUP BY company_name HAVING products_supplied > 1 ORDER BY products_supplied DESC";
+        connect = database.connectDb();
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            while (result.next()) {
+                String companyName = result.getString("company_name");
+                int productsSupplied = result.getInt("products_supplied");
+                resultMessage.append("Назва компанії: ").append(companyName).append(", Кількість поставлених товарів: ").append(productsSupplied).append("\n");
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestGoods4Action(ActionEvent event) {
+        // Updated query to select goods with a price higher than the average price in their category
+        String query = "SELECT g1.* FROM goods g1 JOIN ( SELECT category, AVG(price) AS avg_price FROM goods GROUP BY category ) g2 ON g1.category = g2.category WHERE g1.price > g2.avg_price";
+        connect = database.connectDb();
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            while (result.next()) {
+                // Assuming 'id', 'name', 'category', 'price', and 'quantity_in_stock' are columns in your goods table
+                int id = result.getInt("productID");
+                String name = result.getString("name");
+                String category = result.getString("category");
+                double price = result.getDouble("price");
+                int quantityInStock = result.getInt("quantity_in_stock");
+                resultMessage.append("ID: ").append(id)
+                        .append(", Назва: ").append(name)
+                        .append(", Категорія: ").append(category)
+                        .append(", Ціна: ").append(String.format("%.2f", price))
+                        .append(", Кількість на складі: ").append(quantityInStock)
+                        .append("\n");
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestGoods5Action(ActionEvent event) {
+        // Updated query to select goods where data is before '2023-03-13' and quantity_in_stock is greater than 1
+        String query = "SELECT * FROM goods WHERE data < '2023-03-13' AND quantity_in_stock > 1";
+        connect = database.connectDb();
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            while (result.next()) {
+                // Assuming 'id', 'name', 'category', 'price', 'quantity_in_stock', and 'data' are columns in your goods table
+                int id = result.getInt("productID");
+                String name = result.getString("name");
+                String category = result.getString("category");
+                double price = result.getDouble("price");
+                int quantityInStock = result.getInt("quantity_in_stock");
+                String data = result.getString("data"); // Assuming 'data' is the column name for the date
+                resultMessage.append("ID: ").append(id)
+                        .append(", Назва: ").append(name)
+                        .append(", Категорія: ").append(category)
+                        .append(", Ціна: ").append(String.format("%.2f", price))
+                        .append(", Кількість на складі: ").append(quantityInStock)
+                        .append(", Дата: ").append(data)
+                        .append("\n");
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestGoods6Action(ActionEvent event) {
+        // Updated query to select goods with quantity_in_stock less than 10 and order by quantity_in_stock in ascending order
+        String query = "SELECT productID, name, category, quantity_in_stock FROM goods WHERE quantity_in_stock < 10 ORDER BY quantity_in_stock ASC";
+        connect = database.connectDb();
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            while (result.next()) {
+                // Assuming 'productID', 'name', 'category', and 'quantity_in_stock' are columns in your goods table
+                int productID = result.getInt("productID");
+                String name = result.getString("name");
+                String category = result.getString("category");
+                int quantityInStock = result.getInt("quantity_in_stock");
+                resultMessage.append("ID продукту: ").append(productID)
+                        .append(", Назва: ").append(name)
+                        .append(", Категорія: ").append(category)
+                        .append(", Кількість на складі: ").append(quantityInStock)
+                        .append("\n");
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestGoods7Action(ActionEvent event) {
+        // Updated query to select categories and the sum of quantity_in_stock for each category, ordered by the total quantity in stock in descending order
+        String query = "SELECT category, SUM(quantity_in_stock) AS total_quantity_in_stock FROM goods GROUP BY category ORDER BY total_quantity_in_stock DESC";
+        connect = database.connectDb();
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            while (result.next()) {
+                // Assuming 'category' and 'total_quantity_in_stock' are the columns in the result set
+                String category = result.getString("category");
+                int totalQuantityInStock = result.getInt("total_quantity_in_stock");
+                resultMessage.append("Категорія: ").append(category)
+                        .append(", Загальна кількість на складі: ").append(totalQuantityInStock)
+                        .append("\n");
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestDeliveries1Action(ActionEvent event) {
+        String query = "SELECT category, COUNT(*) AS total_deliveries FROM deliveries GROUP BY category";
+        connect = database.connectDb();
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            while (result.next()) {
+                // Assuming 'category' and 'total_deliveries' are the columns in the result set
+                String category = result.getString("category");
+                int totalDeliveries = result.getInt("total_deliveries");
+                resultMessage.append("Категорія: ").append(category)
+                        .append(", Загальна кількість доставок: ").append(totalDeliveries)
+                        .append("\n");
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestDeliveries2Action(ActionEvent event) {
+        String query = "SELECT category, AVG(price_one_product) AS average_price FROM deliveries GROUP BY category";
+        connect = database.connectDb();
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            while (result.next()) {
+                // Тепер 'category' та 'average_price' є стовпцями у наборі результатів
+                String category = result.getString("category");
+                double averagePrice = result.getDouble("average_price"); // Використовуємо getDouble для середньої ціни
+                resultMessage.append("Категорія: ").append(category)
+                        .append(", Середня ціна одного продукту: ").append(String.format("%.2f", averagePrice)) // Форматуємо середню ціну до двох знаків після коми
+                        .append("\n");
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestDeliveries3Action(ActionEvent event) {
+        String query = "SELECT d.* FROM deliveries d JOIN (SELECT category, AVG(price_one_product) AS avg_price FROM deliveries GROUP BY category) avg_prices ON d.category = avg_prices.category WHERE d.price_one_product > avg_prices.avg_price";
+        connect = database.connectDb();
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            while (result.next()) {
+                // Тут потрібно вказати, які саме поля ви хочете вивести. Наприклад, якщо в таблиці deliveries є поля id, category, price_one_product, то:
+                int id = result.getInt("productID");
+                String category = result.getString("category");
+                double priceOneProduct = result.getDouble("price_one_product");
+                // Форматуємо вивід, використовуючи отримані дані
+                resultMessage.append("productID: ").append(id)
+                        .append(", Категорія: ").append(category)
+                        .append(", Ціна одного продукту: ").append(String.format("%.2f", priceOneProduct))
+                        .append("\n");
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestDeliveries4Action(ActionEvent event) {
+        String query = "SELECT d1.* FROM deliveries d1 JOIN (SELECT category, MAX(number) AS max_number FROM deliveries GROUP BY category) d2 ON d1.category = d2.category AND d1.number = d2.max_number";
+        connect = database.connectDb();
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            while (result.next()) {
+                // Тут потрібно вказати, які саме поля ви хочете вивести. Наприклад, якщо в таблиці deliveries є поля id, category, number, то:
+                int id = result.getInt("productID");
+                String category = result.getString("category");
+                int number = result.getInt("number"); // Використовуємо getInt для кількості товару
+                // Форматуємо вивід, використовуючи отримані дані
+                resultMessage.append("productID: ").append(id)
+                        .append(", Категорія: ").append(category)
+                        .append(", Кількість товару: ").append(number)
+                        .append("\n");
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestDeliveries5Action(ActionEvent event) {
+        String query = "SELECT g.name FROM goods g JOIN deliveries d ON g.productID = d.productID WHERE d.delivery_date > '2023-01-01'";
+        connect = database.connectDb();
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            while (result.next()) {
+                // Тут потрібно вказати, які саме поля ви хочете вивести. У цьому випадку, ми виводимо лише ім'я товару:
+                String name = result.getString("name"); // Використовуємо getString для імені товару
+                // Форматуємо вивід, використовуючи отримані дані
+                resultMessage.append("Назва товару: ").append(name).append("\n");
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestDeliveries6Action(ActionEvent event) {
+        String query = "SELECT g.name, COUNT(d.deliveriesID) AS delivery_count FROM goods g JOIN deliveries d ON g.productID = d.productID GROUP BY g.name ORDER BY delivery_count DESC";
+        connect = database.connectDb();
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            while (result.next()) {
+                // Тут потрібно вказати, які саме поля ви хочете вивести. У цьому випадку, ми виводимо ім'я товару та кількість доставок:
+                String name = result.getString("name"); // Використовуємо getString для імені товару
+                int deliveryCount = result.getInt("delivery_count"); // Використовуємо getInt для кількості доставок
+                // Форматуємо вивід, використовуючи отримані дані
+                resultMessage.append("Назва товару: ").append(name)
+                        .append(", Кількість доставок: ").append(deliveryCount)
+                        .append("\n");
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestDeliveries7Action(ActionEvent event) {
+        String query = "SELECT g.name FROM goods g LEFT JOIN deliveries d ON g.productID = d.productID WHERE d.deliveriesID IS NULL";
+        connect = database.connectDb();
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
+            while (result.next()) {
+                // Тут потрібно вказати, які саме поля ви хочете вивести. У цьому випадку, ми виводимо лише ім'я товару:
+                String name = result.getString("name"); // Використовуємо getString для імені товару
+                // Форматуємо вивід, використовуючи отримані дані
+                resultMessage.append("Назва товару: ").append(name).append("\n");
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestSuppliers1Action(ActionEvent event) {
+        String query = "SELECT g.name AS ProductName, s.name_of_company_or_supplier AS SupplierName, s.contact_information, s.location FROM goods g JOIN suppliers s ON g.company_name = s.name_of_company_or_supplier";
+        connect = database.connectDb(); // Connect to the database
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query); // Prepare the SQL query
+            result = prepare.executeQuery(); // Execute the query
+            while (result.next()) {
+                // Retrieve the values for each column
+                String productName = result.getString("ProductName");
+                String supplierName = result.getString("SupplierName");
+                String contactInformation = result.getString("contact_information");
+                String location = result.getString("location");
+                // Format and append the retrieved data to the result message
+                resultMessage.append("Назва товару: ").append(productName)
+                        .append(", Назва постачальника: ").append(supplierName)
+                        .append(", Контактна інформація: ").append(contactInformation)
+                        .append(", Місцезнаходження: ").append(location).append("\n");
+            }
+            // Display the result message in an information alert
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Display an error alert if an exception occurs
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestSuppliers2Action(ActionEvent event) {
+        String query = "SELECT category, SUM(quantity_in_stock) AS TotalQuantityInStock FROM goods GROUP BY category";
+        connect = database.connectDb(); // Connect to the database
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query); // Prepare the SQL query
+            result = prepare.executeQuery(); // Execute the query
+            while (result.next()) {
+                // Retrieve the values for each column
+                String category = result.getString("category");
+                int totalQuantityInStock = result.getInt("TotalQuantityInStock");
+                // Format and append the retrieved data to the result message
+                resultMessage.append("Категорія: ").append(category)
+                        .append(", Загальна кількість на складі: ").append(totalQuantityInStock).append("\n");
+            }
+            // Display the result message in an information alert
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Display an error alert if an exception occurs
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestSuppliers3Action(ActionEvent event) {
+        String query = "SELECT DISTINCT s.name_of_company_or_supplier, s.contact_information FROM suppliers s JOIN goods g ON s.name_of_company_or_supplier = g.company_name WHERE g.price > 400";
+        connect = database.connectDb(); // Connect to the database
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query); // Prepare the SQL query
+            result = prepare.executeQuery(); // Execute the query
+            while (result.next()) {
+                // Retrieve the values for each column
+                String supplierName = result.getString("name_of_company_or_supplier");
+                String contactInformation = result.getString("contact_information");
+                // Format and append the retrieved data to the result message
+                resultMessage.append("Назва постачальника: ").append(supplierName)
+                        .append(", Контактна інформація: ").append(contactInformation).append("\n");
+            }
+            // Display the result message in an information alert
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Display an error alert if an exception occurs
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestSuppliers4Action(ActionEvent event) {
+        String query = "SELECT g.company_name, AVG(g.price) AS AveragePrice FROM goods g GROUP BY g.company_name";
+        connect = database.connectDb(); // Connect to the database
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query); // Prepare the SQL query
+            result = prepare.executeQuery(); // Execute the query
+            while (result.next()) {
+                // Retrieve the values for each column
+                String companyName = result.getString("company_name");
+                double averagePrice = result.getDouble("AveragePrice");
+                // Format and append the retrieved data to the result message
+                resultMessage.append("Назва компанії: ").append(companyName)
+                        .append(", Середня ціна: ").append(averagePrice).append("\n");
+            }
+            // Display the result message in an information alert
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Display an error alert if an exception occurs
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestSuppliers5Action(ActionEvent event) {
+        String query = "SELECT g.name AS ProductName, g.category, s.location FROM goods g JOIN suppliers s ON g.company_name = s.name_of_company_or_supplier WHERE g.quantity_in_stock > 0 AND g.category = 'Електроніка'";
+        connect = database.connectDb(); // Connect to the database
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query); // Prepare the SQL query
+            result = prepare.executeQuery(); // Execute the query
+            while (result.next()) {
+                // Retrieve the values for each column
+                String productName = result.getString("ProductName");
+                String category = result.getString("category"); // Assuming you want to display the category as well
+                String location = result.getString("location");
+                // Format and append the retrieved data to the result message
+                resultMessage.append("Назва товару: ").append(productName)
+                        .append(", Категорія: ").append(category) // Displaying the category
+                        .append(", Місцезнаходження: ").append(location).append("\n");
+            }
+            // Display the result message in an information alert
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Display an error alert if an exception occurs
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestSuppliers6Action(ActionEvent event) {
+        // Updated SQL query to match the provided one
+        String query = "SELECT g.name AS НазваТовару, g.quantity_in_stock AS КількістьНаСкладі, s.name_of_company_or_supplier AS НазваПостачальника FROM goods g JOIN suppliers s ON g.company_name = s.name_of_company_or_supplier WHERE g.quantity_in_stock < ( SELECT AVG(quantity_in_stock) FROM goods )";
+        connect = database.connectDb(); // Connect to the database
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query); // Prepare the SQL query
+            result = prepare.executeQuery(); // Execute the query
+            while (result.next()) {
+                // Retrieve the values for each column
+                String productName = result.getString("НазваТовару");
+                int quantityInStock = result.getInt("КількістьНаСкладі");
+                String supplierName = result.getString("НазваПостачальника");
+                // Format and append the retrieved data to the result message
+                resultMessage.append("Назва товару: ").append(productName)
+                        .append(", Кількість на складі: ").append(quantityInStock)
+                        .append(", Назва постачальника: ").append(supplierName).append("\n");
+            }
+            // Display the result message in an information alert
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Display an error alert if an exception occurs
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestSuppliers7Action(ActionEvent event) {
+        // Updated SQL query to fetch the most expensive product within each category and its supplier's details
+        String query = "SELECT g.category, g.name AS ProductName, g.price, s.name_of_company_or_supplier AS SupplierName " +
+                "FROM goods g " +
+                "JOIN suppliers s ON g.company_name = s.name_of_company_or_supplier " +
+                "WHERE (g.category, g.price) IN ( " +
+                "  SELECT category, MAX(price) " +
+                "  FROM goods " +
+                "  GROUP BY category " +
+                ")";
+        connect = database.connectDb(); // Connect to the database
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query); // Prepare the SQL query
+            result = prepare.executeQuery(); // Execute the query
+            while (result.next()) {
+                // Retrieve the values for each column
+                String category = result.getString("category");
+                String productName = result.getString("ProductName");
+                Double price = result.getDouble("price");
+                String supplierName = result.getString("SupplierName");
+                // Format and append the retrieved data to the result message
+                resultMessage.append("Категорія: ").append(category)
+                        .append(", Назва товару: ").append(productName)
+                        .append(", Ціна: ").append(price)
+                        .append(", Назва постачальника: ").append(supplierName).append("\n");
+            }
+            // Display the result message in an information alert
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Display an error alert if an exception occurs
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestInventory1Action(ActionEvent event) {
+        String query = "SELECT g.name AS ProductName, g.category " +
+                "FROM goods g " +
+                "LEFT JOIN inventory i ON g.productID = i.product " +
+                "WHERE i.product IS NULL";
+
+        connect = database.connectDb(); // Connect to the database
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query); // Prepare the SQL query
+            result = prepare.executeQuery(); // Execute the query
+            while (result.next()) {
+                // Retrieve the values for each column
+                String productName = result.getString("ProductName");
+                String category = result.getString("category");
+                // Format and append the retrieved data to the result message
+                resultMessage.append("Назва товару: ").append(productName)
+                        .append(", Категорія: ").append(category).append("\n");
+            }
+            // Display the result message in an information alert
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Display an error alert if an exception occurs
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestInventory2Action(ActionEvent event) {
+        String query = "SELECT g.category, SUM(g.quantity_in_stock) AS TotalQuantityInStock " +
+                "FROM goods g " +
+                "GROUP BY g.category";
+
+        connect = database.connectDb(); // Connect to the database
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query); // Prepare the SQL query
+            result = prepare.executeQuery(); // Execute the query
+            while (result.next()) {
+                // Retrieve the values for each column
+                String category = result.getString("category");
+                int totalQuantityInStock = result.getInt("TotalQuantityInStock");
+                // Format and append the retrieved data to the result message
+                resultMessage.append("Категорія: ").append(category)
+                        .append(", Загальна кількість на складі: ").append(totalQuantityInStock).append("\n");
+            }
+            // Display the result message in an information alert
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Display an error alert if an exception occurs
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestInventory3Action(ActionEvent event) {
+        String query = "SELECT g.category, AVG(g.price) AS AveragePrice " +
+                "FROM goods g " +
+                "WHERE g.quantity_in_stock > 0 " +
+                "GROUP BY g.category";
+
+        connect = database.connectDb(); // Connect to the database
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query); // Prepare the SQL query
+            result = prepare.executeQuery(); // Execute the query
+            while (result.next()) {
+                // Retrieve the values for each column
+                String category = result.getString("category");
+                Double averagePrice = result.getDouble("AveragePrice");
+                // Format and append the retrieved data to the result message
+                resultMessage.append("Категорія: ").append(category)
+                        .append(", Середня ціна: ").append(averagePrice).append("\n");
+            }
+            // Display the result message in an information alert
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Display an error alert if an exception occurs
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestInventory4Action(ActionEvent event) {
+        String query = "SELECT name AS Назва_Товару, price AS Ціна FROM goods";
+
+        connect = database.connectDb(); // Connect to the database
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query); // Prepare the SQL query
+            result = prepare.executeQuery(); // Execute the query
+            while (result.next()) {
+                // Retrieve the values for each column
+                String productName = result.getString("Назва_Товару");
+                Double price = result.getDouble("Ціна");
+                // Format and append the retrieved data to the result message
+                resultMessage.append("Назва товару: ").append(productName)
+                        .append(", Ціна: ").append(price).append("\n");
+            }
+            // Display the result message in an information alert
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Display an error alert if an exception occurs
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+    public void handleRequestInventory5Action(ActionEvent event) {
+        String query = "SELECT company_name AS Назва_Компанії, COUNT(*) AS Кількість_Товарів " +
+                "FROM goods " +
+                "GROUP BY company_name " +
+                "ORDER BY Кількість_Товарів DESC";
+
+        connect = database.connectDb(); // Connect to the database
+        StringBuilder resultMessage = new StringBuilder();
+        try {
+            prepare = connect.prepareStatement(query); // Prepare the SQL query
+            result = prepare.executeQuery(); // Execute the query
+            while (result.next()) {
+                // Retrieve the values for each column
+                String companyName = result.getString("Назва_Компанії");
+                int productCount = result.getInt("Кількість_Товарів");
+                // Format and append the retrieved data to the result message
+                resultMessage.append("Назва компанії: ").append(companyName)
+                        .append(", Кількість товарів: ").append(productCount).append("\n");
+            }
+            // Display the result message in an information alert
+            showAlert(Alert.AlertType.INFORMATION, "Результати запиту", resultMessage.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Display an error alert if an exception occurs
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при виконанні запиту.");
+        }
+    }
+
+
+    public void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
-        alert.setContentText(content);
+        alert.setContentText(message);
+
+        // Зробити вікно сповіщення змінним за розміром
+        alert.setResizable(true);
+        // Встановити мінімальний розмір вікна
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        alert.getDialogPane().setMinWidth(400); // Ви можете змінити це значення відповідно до ваших потреб
+
         alert.showAndWait();
     }
+    public ObservableList<goodsData> goodsListData(){
+        ObservableList<goodsData> godList = FXCollections.observableArrayList();
 
+        String sql = "SELECT * FROM goods";
+
+        connect = database.connectDb();
+
+        try{
+            goodsData god;
+
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+
+            while(result.next()){
+                god = new goodsData(
+                        result.getString("productID"),
+                        result.getString("name"),
+                        result.getString("company_name"),
+                        result.getString("customer_address"),
+                        result.getString("category"),
+                        result.getString("price"),
+                        result.getString("quantity_in_stock"),
+                        result.getString("data"));
+
+
+                godList.add(god);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return godList;
+    }
+
+    private ObservableList<goodsData> goodsList;
+
+    public void goodsShowData(){
+        goodsList = goodsListData();
+
+        goods_col_productID.setCellValueFactory(new PropertyValueFactory<>("productID"));
+        goods_col_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        goods_col_companyName.setCellValueFactory(new PropertyValueFactory<>("company_name"));
+        goods_col_customerAddress.setCellValueFactory(new PropertyValueFactory<>("customer_address"));
+        goods_col_category.setCellValueFactory(new PropertyValueFactory<>("category"));
+        goods_col_price.setCellValueFactory(new PropertyValueFactory<>("price"));
+        goods_col_quantityInStock.setCellValueFactory(new PropertyValueFactory<>("quantity_in_stock"));
+        goods_col_data.setCellValueFactory(new PropertyValueFactory<>("data"));
+
+        goods_tableView.setItems(goodsList);
+
+    }
+    public ObservableList<deliveriesData> deliveriesListData(){
+        ObservableList<deliveriesData> delList = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM deliveries";
+
+        connect = database.connectDb();
+
+        try{
+            deliveriesData del;
+
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+
+            while(result.next()){
+                del = new deliveriesData(
+                        result.getString("deliveriesID"),
+                        result.getString("productID"),
+                        result.getString("number"),
+                        result.getString("category"),
+                        result.getString("delivery_date"),
+                        result.getString("price_one_product"));
+
+
+                delList.add(del);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return delList;
+    }
+
+    private ObservableList<deliveriesData> delList;
+
+    public void deliveriesShowData(){
+        delList = deliveriesListData();
+
+        deliveries_col_deliveriesID.setCellValueFactory(new PropertyValueFactory<>("deliveriesID"));
+        deliveries_col_productID.setCellValueFactory(new PropertyValueFactory<>("productID"));
+        deliveries_col_number.setCellValueFactory(new PropertyValueFactory<>("number"));
+        deliveries_col_category.setCellValueFactory(new PropertyValueFactory<>("category"));
+        deliveries_col_deliveryDate.setCellValueFactory(new PropertyValueFactory<>("delivery_date"));
+        deliveries_col_priceOneProduct.setCellValueFactory(new PropertyValueFactory<>("price_one_product"));
+
+        deliveries_tableView.setItems(delList);
+
+    }
+    public ObservableList<suppliersData> suppliersListData(){
+        ObservableList<suppliersData> supList = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM suppliers";
+
+        connect = database.connectDb();
+
+        try{
+            suppliersData sup;
+
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+
+            while(result.next()){
+                sup = new suppliersData(
+                        result.getString("vendorID"),
+                        result.getString("name_of_company_or_supplier"),
+                        result.getString("contact_information"),
+                        result.getString("location"));
+
+                supList.add(sup);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return supList;
+    }
+
+    private ObservableList<suppliersData> supList;
+
+    public void suppliersShowData(){
+        supList = suppliersListData();
+
+        suppliers_col_vendorID.setCellValueFactory(new PropertyValueFactory<>("vendorID"));
+        suppliers_col_nameOfcompanyOrsupplier.setCellValueFactory(new PropertyValueFactory<>("name_of_company_or_supplier"));
+        suppliers_col_contactInformation.setCellValueFactory(new PropertyValueFactory<>("contact_information"));
+        suppliers_col_location.setCellValueFactory(new PropertyValueFactory<>("location"));
+
+        suppliers_tableView.setItems(supList);
+
+    }
+
+    public ObservableList<inventoryData> inventoryListData(){
+        ObservableList<inventoryData> inveList = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM inventory";
+
+        connect = database.connectDb();
+
+        try{
+            inventoryData inve;
+
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+
+            while(result.next()){
+                inve = new inventoryData(
+                        result.getString("inventoryID"),
+                        result.getString("data"),
+                        result.getString("product"));
+
+                inveList.add(inve);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return inveList;
+    }
+
+    private ObservableList<inventoryData> inveList;
+
+    public void inventoryShowData(){
+        inveList = inventoryListData();
+
+        inventory_col_inventoryID.setCellValueFactory(new PropertyValueFactory<>("inventoryID"));
+        inventory_col_data.setCellValueFactory(new PropertyValueFactory<>("data"));
+        inventory_col_product.setCellValueFactory(new PropertyValueFactory<>("product"));
+
+        inventory_tableView.setItems(inveList);
+
+    }
 
     private String [] statusList = {
             "В обробці",
@@ -750,28 +1730,50 @@ public class adminDashboardController implements Initializable {
     }
 
     public void switchForm(ActionEvent event) {
+        // Спочатку встановлюємо стандартний стиль для всіх кнопок
+//        String defaultStyle = "-fx-background-color: #f0f0f0;"; // Білий колір фону
+//        String activeStyle = "-fx-background-color: #ffae00;"; // Синій колір фону для активної кнопки
+//
+//        dashboard_btn.setStyle(defaultStyle);
+//        addProducts_btn.setStyle(defaultStyle);
+//        employees_bts.setStyle(defaultStyle);
+//        goods_btn.setStyle(defaultStyle);
+//        deliveries_btn.setStyle(defaultStyle);
+//        suppliers_btn.setStyle(defaultStyle);
+//        inventory_btn.setStyle(defaultStyle);
 
+        // Приховуємо всі форми спочатку
+        dashboard_form.setVisible(false);
+        addProducts_form.setVisible(false);
+        employees_form.setVisible(false);
+        goods_form.setVisible(false);
+        deliveries_form.setVisible(false);
+        suppliers_form.setVisible(false);
+        inventory_form.setVisible(false);
+
+        // Визначаємо, яка кнопка була натиснута, показуємо відповідну форму і змінюємо стиль кнопки
         if(event.getSource() == dashboard_btn) {
             dashboard_form.setVisible(true);
-            addProducts_form.setVisible(false);
-            employees_form.setVisible(false);
+//            dashboard_btn.setStyle(activeStyle);
         } else if (event.getSource() == addProducts_btn) {
-            dashboard_form.setVisible(false);
             addProducts_form.setVisible(true);
-            employees_form.setVisible(false);
-
-            addProductsShowData();
-            addProductsStatusList();
-            addProductsSearch();
-
+//            addProducts_btn.setStyle(activeStyle);
         } else if (event.getSource() == employees_bts) {
-            dashboard_form.setVisible(false);
-            addProducts_form.setVisible(false);
             employees_form.setVisible(true);
-
-
+//            employees_bts.setStyle(activeStyle);
+        } else if (event.getSource() == goods_btn) {
+            goods_form.setVisible(true);
+//            goods_btn.setStyle(activeStyle);
+        } else if (event.getSource() == deliveries_btn) {
+            deliveries_form.setVisible(true);
+//            deliveries_btn.setStyle(activeStyle);
+        } else if (event.getSource() == suppliers_btn) {
+            suppliers_form.setVisible(true);
+//            suppliers_btn.setStyle(activeStyle);
+        } else if (event.getSource() == inventory_btn) {
+            inventory_form.setVisible(true);
+//            inventory_btn.setStyle(activeStyle);
         }
-
     }
 
     public void close(){
@@ -791,6 +1793,11 @@ public class adminDashboardController implements Initializable {
 
             employeesShowListData();
             employeesGender();
+
+            goodsShowData();
+            deliveriesShowData();
+            suppliersShowData();
+            inventoryShowData();
 
     }
 }

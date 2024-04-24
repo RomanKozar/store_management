@@ -96,7 +96,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="employees_bts" layoutX="52.0" layoutY="253.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="42.0" prefWidth="175.0" text="Employees">
+                        <Button fx:id="employees_bts" layoutX="52.0" layoutY="253.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="42.0" prefWidth="175.0" text="Employee">
                            <font>
                               <Font name="System Bold Italic" size="14.0" />
                            </font>
@@ -127,6 +127,54 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
+                        <Button fx:id="goods_btn" layoutX="54.0" layoutY="301.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="42.0" prefWidth="175.0" text="Goods">
+                           <font>
+                              <Font name="System Bold Italic" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/9929030_import_goods_delivery_cargo_transportation_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="deliveries_btn" layoutX="53.0" layoutY="349.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="42.0" prefWidth="175.0" text="Deliveries">
+                           <font>
+                              <Font name="System Bold Italic" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="31.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/4544854_business_comerce_delivery_shop_truck_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="suppliers_btn" layoutX="53.0" layoutY="397.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="42.0" prefWidth="175.0" text="Suppliers">
+                           <font>
+                              <Font name="System Bold Italic" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/7811687_address_delivery_map_tracking_distribution_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="inventory_btn" layoutX="54.0" layoutY="445.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="42.0" prefWidth="175.0" text="Inventory">
+                           <font>
+                              <Font name="System Bold Italic" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="27.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/4295568_bulleted_list_catalogue_checklist_enumeration_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                      </children>
                   </AnchorPane>
                </left>
@@ -368,7 +416,7 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="employees_form" layoutX="86.0" layoutY="47.0" prefHeight="546.4" prefWidth="828.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="employees_form" layoutX="86.0" layoutY="47.0" prefHeight="546.4" prefWidth="828.8" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="15.0" layoutY="14.0" prefHeight="207.0" prefWidth="796.0" style="-fx-border-color: #000000;">
                                  <children>
@@ -436,6 +484,426 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Button>
+                                    <Label layoutX="65.0" layoutY="110.0" prefHeight="52.0" prefWidth="127.0" text="Запит для визначення середньої довжини `employee_id`" wrapText="true" />
+                                    <Button fx:id="addProducts_request111111" layoutX="235.0" layoutY="122.0" mnemonicParsing="false" onAction="#Request1ActionEmployee">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="65.0" layoutY="169.0" prefHeight="54.0" prefWidth="170.0" text="Запит для визначення середньої довжини імені співробітників (`firstName`)" wrapText="true" />
+                                    <Button fx:id="addProducts_request1111111" layoutX="235.0" layoutY="183.0" mnemonicParsing="false" onAction="#Request2ActionEmployee">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="65.0" layoutY="229.0" prefHeight="52.0" prefWidth="170.0" text="Запит для визначення середньої довжини прізвища співробітників (`lastName`)" wrapText="true" />
+                                    <Button fx:id="addProducts_request11111111" layoutX="235.0" layoutY="239.0" mnemonicParsing="false" onAction="#Request3ActionEmployee">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="421.0" layoutY="159.0" prefHeight="52.0" prefWidth="142.0" text="Запит для визначення кількості унікальних імен серед співробітників" wrapText="true" />
+                                    <Button fx:id="addProducts_request111111111" layoutX="581.0" layoutY="170.0" mnemonicParsing="false" onAction="#Request4ActionEmployee">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="424.0" layoutY="216.0" prefHeight="54.0" prefWidth="138.0" text="Запит для визначення кількості співробітників кожної статі" wrapText="true" />
+                                    <Button fx:id="addProducts_request1111111111" layoutX="581.0" layoutY="229.0" mnemonicParsing="false" onAction="#Request5ActionEmployee">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="goods_form" layoutX="43.0" layoutY="43.0" prefHeight="589.6" prefWidth="872.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <AnchorPane layoutX="14.0" layoutY="9.0" prefHeight="513.0" prefWidth="230.0" style="-fx-border-color: #000000;">
+                                 <children>
+                                    <Label layoutX="6.0" layoutY="7.0" prefHeight="53.0" prefWidth="182.0" text="Запит для визначення загальної кількості товарів по категоріях з сортуванням за зменшенням" wrapText="true" />
+                                    <Button fx:id="addProducts_request11" layoutX="190.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleRequestGoods1Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="10.0" layoutY="243.0" prefHeight="51.0" prefWidth="170.0" text="Запит для визначення товарів з ціною вище середньої по кожній категорії" wrapText="true" />
+                                    <Button fx:id="addProducts_request41" layoutX="186.0" layoutY="252.0" mnemonicParsing="false" onAction="#handleRequestGoods4Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="12.0" layoutY="304.0" prefHeight="56.0" prefWidth="170.0" text="Запит для визначення товарів, які не були продані з певної дати" wrapText="true" />
+                                    <Button fx:id="addProducts_request51" layoutX="186.0" layoutY="315.0" mnemonicParsing="false" onAction="#handleRequestGoods5Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="11.0" layoutY="147.0" prefHeight="86.0" prefWidth="152.0" text="Запит для визначення компаній, які поставляють більше за певну кількість товарів, з сортуванням за кількістю" wrapText="true" />
+                                    <Button fx:id="addProducts_request31" layoutX="186.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleRequestGoods3Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="8.0" layoutY="69.0" prefHeight="72.0" prefWidth="178.0" text="Запит для визначення середньої ціни товарів у кожній категорії з фільтрацією за наявністю на складі" wrapText="true" />
+                                    <Button fx:id="addProducts_request21" layoutX="190.0" layoutY="91.0" mnemonicParsing="false" onAction="#handleRequestGoods2Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="12.0" layoutY="369.0" prefHeight="56.0" prefWidth="170.0" text="Запит для визначення товарів, які потребують поповнення запасів" wrapText="true" />
+                                    <Button fx:id="addProducts_request514" layoutX="188.0" layoutY="383.0" mnemonicParsing="false" onAction="#handleRequestGoods6Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="12.0" layoutY="432.0" prefHeight="56.0" prefWidth="170.0" text="Запит для визначення найпопулярніших категорій товарів" wrapText="true" />
+                                    <Button fx:id="addProducts_request5141" layoutX="189.0" layoutY="446.0" mnemonicParsing="false" onAction="#handleRequestGoods7Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="251.0" layoutY="10.0" prefHeight="512.0" prefWidth="564.0" style="-fx-border-color: #000000;">
+                                 <children>
+                                    <TextField fx:id="addProducts_search1" layoutX="14.0" layoutY="7.0" onKeyPressed="#addProductsSearch" prefHeight="26.0" prefWidth="191.0" promptText="Пошук" />
+                                    <ImageView fitHeight="16.0" fitWidth="17.0" layoutX="182.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@assets/211817_search_strong_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <TableView fx:id="goods_tableView" layoutX="3.0" layoutY="44.0" prefHeight="463.0" prefWidth="558.0">
+                                       <columns>
+                                          <TableColumn fx:id="goods_col_productID" prefWidth="35.19999694824219" text="productID" />
+                                          <TableColumn fx:id="goods_col_name" minWidth="0.0" prefWidth="88.79998779296875" text="name" />
+                                          <TableColumn fx:id="goods_col_companyName" prefWidth="104.79998779296875" text="company_name" />
+                                          <TableColumn fx:id="goods_col_customerAddress" minWidth="0.0" prefWidth="113.5999755859375" text="customer_address" />
+                                          <TableColumn fx:id="goods_col_category" prefWidth="64.800048828125" text="category" />
+                                          <TableColumn fx:id="goods_col_price" prefWidth="43.199951171875" text="price" />
+                                          <TableColumn fx:id="goods_col_quantityInStock" prefWidth="29.5999755859375" text="quantity_in_stock" />
+                                          <TableColumn fx:id="goods_col_data" prefWidth="74.39996337890625" text="data" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="deliveries_form" layoutX="53.0" layoutY="53.0" prefHeight="644.0" prefWidth="925.6" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <AnchorPane layoutX="14.0" layoutY="9.0" prefHeight="513.0" prefWidth="230.0" style="-fx-border-color: #000000;">
+                                 <children>
+                                    <Label layoutX="6.0" layoutY="7.0" prefHeight="53.0" prefWidth="182.0" text="Запит для отримання загальної кількості доставок по категоріях товарів" wrapText="true" />
+                                    <Button fx:id="addProducts_request114" layoutX="190.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleRequestDeliveries1Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="5.0" layoutY="74.0" prefHeight="53.0" prefWidth="182.0" text="Запит для визначення середньої ціни одного товару по кожній категорії" wrapText="true" />
+                                    <Button fx:id="addProducts_request1141" layoutX="189.0" layoutY="85.0" mnemonicParsing="false" onAction="#handleRequestDeliveries2Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="5.0" layoutY="143.0" prefHeight="53.0" prefWidth="182.0" text="Запит для вибору всіх доставок товарів, ціна яких вища за середню ціну в їх категорії" wrapText="true" />
+                                    <Button fx:id="addProducts_request11411" layoutX="189.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleRequestDeliveries3Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="6.0" layoutY="214.0" prefHeight="70.0" prefWidth="182.0" text="Запит для отримання інформації про товари з максимальною кількістю в кожній категорії доставок" wrapText="true" />
+                                    <Button fx:id="addProducts_request114111" layoutX="190.0" layoutY="225.0" mnemonicParsing="false" onAction="#handleRequestDeliveries4Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="6.0" layoutY="303.0" prefHeight="53.0" prefWidth="182.0" text="Запит для вибору назв товарів із таблиці `goods`, які були доставлені після певної дати" wrapText="true" />
+                                    <Button fx:id="addProducts_request1141111" layoutX="190.0" layoutY="314.0" mnemonicParsing="false" onAction="#handleRequestDeliveries5Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="6.0" layoutY="379.0" prefHeight="53.0" prefWidth="182.0" text="Запит для визначення кількості доставок по кожному товару, сортування за зменшенням" wrapText="true" />
+                                    <Button fx:id="addProducts_request11411111" layoutX="190.0" layoutY="390.0" mnemonicParsing="false" onAction="#handleRequestDeliveries6Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="7.0" layoutY="446.0" prefHeight="53.0" prefWidth="182.0" text="Запит для отримання товарів, які не мали доставок" wrapText="true" />
+                                    <Button fx:id="addProducts_request114111111" layoutX="191.0" layoutY="457.0" mnemonicParsing="false" onAction="#handleRequestDeliveries7Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="251.0" layoutY="10.0" prefHeight="512.0" prefWidth="564.0" style="-fx-border-color: #000000;">
+                                 <children>
+                                    <TextField fx:id="addProducts_search11" layoutX="14.0" layoutY="7.0" onKeyPressed="#addProductsSearch" prefHeight="26.0" prefWidth="191.0" promptText="Пошук" />
+                                    <ImageView fitHeight="16.0" fitWidth="17.0" layoutX="182.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@assets/211817_search_strong_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <TableView fx:id="deliveries_tableView" layoutX="3.0" layoutY="44.0" onMouseClicked="#addProductsSelect" prefHeight="463.0" prefWidth="558.0">
+                                       <columns>
+                                          <TableColumn fx:id="deliveries_col_deliveriesID" prefWidth="73.59996032714844" text="deliveriesID" />
+                                          <TableColumn fx:id="deliveries_col_productID" prefWidth="72.0" text="productID" />
+                                          <TableColumn fx:id="deliveries_col_number" prefWidth="55.199951171875" text="number" />
+                                          <TableColumn fx:id="deliveries_col_category" minWidth="0.0" prefWidth="143.199951171875" text="category" />
+                                          <TableColumn fx:id="deliveries_col_deliveryDate" prefWidth="88.0" text="delivery_date" />
+                                          <TableColumn fx:id="deliveries_col_priceOneProduct" prefWidth="122.40008544921875" text="price_one_product" />
+                                          <TableColumn fx:id="addProducts_col_ID111" prefWidth="79.99998474121094" text="ID" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="suppliers_form" layoutX="53.0" layoutY="53.0" prefHeight="644.0" prefWidth="925.6" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <AnchorPane layoutX="14.0" layoutY="9.0" prefHeight="513.0" prefWidth="230.0" style="-fx-border-color: #000000;">
+                                 <children>
+                                    <Label layoutX="8.0" layoutY="70.0" prefHeight="53.0" prefWidth="182.0" text="Знайдіть загальну кількість товарів на складі для кожної категорії товарів" wrapText="true" />
+                                    <Button fx:id="addProducts_request11421" layoutX="192.0" layoutY="81.0" mnemonicParsing="false" onAction="#handleRequestSuppliers2Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="8.0" layoutY="137.0" prefHeight="53.0" prefWidth="182.0" text="Перелічіть постачальників, ціна товарів яких перевищує певний поріг" wrapText="true" />
+                                    <Button fx:id="addProducts_request114211" layoutX="192.0" layoutY="148.0" mnemonicParsing="false" onAction="#handleRequestSuppliers3Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="7.0" layoutY="203.0" prefHeight="53.0" prefWidth="182.0" text="Знайдіть середню ціну товарів для кожного постачальника" wrapText="true" />
+                                    <Button fx:id="addProducts_request1142111" layoutX="191.0" layoutY="214.0" mnemonicParsing="false" onAction="#handleRequestSuppliers4Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="7.0" layoutY="267.0" prefHeight="53.0" prefWidth="182.0" text="Перелічіть усі товари із зазначенням місцезнаходження постачальника для товарів, які є на складі та належать до певної категорії (наприклад, &quot;Електроніка&quot;)" wrapText="true" />
+                                    <Button fx:id="addProducts_request11421111" layoutX="191.0" layoutY="278.0" mnemonicParsing="false" onAction="#handleRequestSuppliers5Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="8.0" layoutY="331.0" prefHeight="104.0" prefWidth="182.0" text="Знайти товари, кількість на складі яких менше середньої кількості на складі по всім товарам, та вивести інформацію про ці товари та їх постачальників" wrapText="true" />
+                                    <Button fx:id="addProducts_request114211111" layoutX="192.0" layoutY="369.0" mnemonicParsing="false" onAction="#handleRequestSuppliers6Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="14.0" layoutY="446.0" prefHeight="53.0" prefWidth="182.0" text="Перелічіть найдорожчий продукт для кожної категорії разом з його постачальником" wrapText="true" />
+                                    <Button fx:id="addProducts_request1142111111" layoutX="195.0" layoutY="457.0" mnemonicParsing="false" onAction="#handleRequestSuppliers7Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="251.0" layoutY="10.0" prefHeight="512.0" prefWidth="564.0" style="-fx-border-color: #000000;">
+                                 <children>
+                                    <TextField fx:id="addProducts_search12" layoutX="14.0" layoutY="7.0" onKeyPressed="#addProductsSearch" prefHeight="26.0" prefWidth="191.0" promptText="Пошук" />
+                                    <ImageView fitHeight="16.0" fitWidth="17.0" layoutX="182.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@assets/211817_search_strong_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <TableView fx:id="suppliers_tableView" layoutX="3.0" layoutY="44.0" onMouseClicked="#addProductsSelect" prefHeight="463.0" prefWidth="558.0">
+                                       <columns>
+                                          <TableColumn fx:id="suppliers_col_vendorID" prefWidth="70.40000915527344" text="vendorID" />
+                                          <TableColumn fx:id="suppliers_col_nameOfcompanyOrsupplier" prefWidth="198.39996337890625" text="name_of_company_or_supplier" />
+                                          <TableColumn fx:id="suppliers_col_contactInformation" prefWidth="166.39996337890625" text="contact_information" />
+                                          <TableColumn fx:id="suppliers_col_location" minWidth="0.0" prefWidth="110.40008544921875" text="location" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                              <Label layoutX="16.0" layoutY="17.0" prefHeight="53.0" prefWidth="182.0" text="Перелічіть усі товари разом з інформацією про їхніх постачальників" wrapText="true" />
+                              <Button fx:id="addProducts_request1142" layoutX="200.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleRequestSuppliers1Action">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="inventory_form" layoutX="53.0" layoutY="53.0" prefHeight="644.0" prefWidth="925.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <AnchorPane layoutX="14.0" layoutY="9.0" prefHeight="513.0" prefWidth="230.0" style="-fx-border-color: #000000;">
+                                 <children>
+                                    <Label layoutX="7.0" layoutY="45.0" prefHeight="53.0" prefWidth="182.0" text="Запит для визначення товарів, які ніколи не були на складі" wrapText="true" />
+                                    <Button fx:id="addProducts_request11422" layoutX="191.0" layoutY="56.0" mnemonicParsing="false" onAction="#handleRequestInventory1Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="8.0" layoutY="121.0" prefHeight="53.0" prefWidth="182.0" text="Запит для отримання загальної кількості товарів на складі по категоріях" wrapText="true" />
+                                    <Button fx:id="addProducts_request114221" layoutX="192.0" layoutY="132.0" mnemonicParsing="false" onAction="#handleRequestInventory2Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="7.0" layoutY="199.0" prefHeight="53.0" prefWidth="182.0" text="Запит для отримання середньої ціни товарів в кожній категорії, які є в наявності" wrapText="true" />
+                                    <Button fx:id="addProducts_request1142211" layoutX="191.0" layoutY="210.0" mnemonicParsing="false" onAction="#handleRequestInventory3Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="8.0" layoutY="265.0" prefHeight="53.0" prefWidth="182.0" text="Запит для отримання списку товарів з їх цінами" wrapText="true" />
+                                    <Button fx:id="addProducts_request11422111" layoutX="192.0" layoutY="276.0" mnemonicParsing="false" onAction="#handleRequestInventory4Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="11.0" layoutY="332.0" prefHeight="109.0" prefWidth="182.0" text="Запит вибере назви компаній та кількість товарів, які вони виробляють, згруповані за назвою компанії та відсортовані за кількістю товарів у спадному порядку" wrapText="true" />
+                                    <Button fx:id="addProducts_request114221111" layoutX="195.0" layoutY="367.0" mnemonicParsing="false" onAction="#handleRequestInventory5Action">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/6843068_business_launch_launching_rocket_spaceship_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="251.0" layoutY="10.0" prefHeight="512.0" prefWidth="564.0" style="-fx-border-color: #000000;">
+                                 <children>
+                                    <TextField fx:id="addProducts_search13" layoutX="14.0" layoutY="7.0" onKeyPressed="#addProductsSearch" prefHeight="26.0" prefWidth="191.0" promptText="Пошук" />
+                                    <ImageView fitHeight="16.0" fitWidth="17.0" layoutX="182.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@assets/211817_search_strong_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <TableView fx:id="inventory_tableView" layoutX="3.0" layoutY="44.0" onMouseClicked="#addProductsSelect" prefHeight="463.0" prefWidth="558.0">
+                                       <columns>
+                                          <TableColumn fx:id="inventory_col_inventoryID" prefWidth="78.40000915527344" text="inventoryID" />
+                                          <TableColumn fx:id="inventory_col_data" prefWidth="225.60003662109375" text="data" />
+                                          <TableColumn fx:id="inventory_col_product" prefWidth="243.199951171875" text="product" />
+                                       </columns>
+                                    </TableView>
                                  </children>
                               </AnchorPane>
                            </children>
